@@ -350,8 +350,13 @@ class Calculator(QWidget):
 if __name__ == '__main__':
 
     import sys
+    import inspect
 
     app = QApplication(sys.argv)
     calc = Calculator()
+    #print(calc.__dict__.keys())
+    for key in vars(Calculator):
+        if not key.startswith("__"):
+            print(key)
     calc.show()
     sys.exit(app.exec_())

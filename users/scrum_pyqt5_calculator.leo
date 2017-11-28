@@ -17,6 +17,7 @@
 <v t="leo.20171122224436.1"><vh>PyQt5 官方程式碼</vh></v>
 </v>
 <v t="leo.20171122224218.1"><vh>目錄規劃</vh></v>
+<v t="leo.20171128054443.1"><vh>第十二週練習</vh></v>
 </vnodes>
 <tnodes>
 <t tx="leo.20171122223841.1"></t>
@@ -110,5 +111,69 @@ eric6_project 存放計算機專案程式
 
 </t>
 <t tx="leo.20171122224436.1">存在 eric6_project 目錄中的 ref.py, 主要用於開發過程中的變數名稱參照</t>
+<t tx="leo.20171128054443.1">從 eric6_project 目錄中複製 run.py 以及 ui 目錄下的 Dialog.ui 檔案 (同樣放在 ui 目錄下)
+
+然後放入 final_project 目錄中, 接著在 final_project 目錄中, 以 Eric6 建立新的 finalproject 專案, 並且以 add existing files 納入 run.py 以及 ui/Dialog.ui
+
+目的是取得 Dialog.ui 中各物件的格式與命名.
+
+接著從 ref.py 檔案中, 在 以
+
+for key in calc.__dict__:
+    print(key)
+
+取得 Calculator 類別的所有屬性 (所有對話框中物件名稱) 如下:
+
+pendingAdditiveOperator
+pendingMultiplicativeOperator
+sumInMemory
+sumSoFar
+factorSoFar
+waitingForOperand
+display
+digitButtons
+pointButton
+changeSignButton
+backspaceButton
+clearButton
+clearAllButton
+clearMemoryButton
+readMemoryButton
+setMemoryButton
+addToMemoryButton
+divisionButton
+timesButton
+minusButton
+plusButton
+squareRootButton
+powerButton
+reciprocalButton
+equalButton
+
+利用
+
+for key in vars(Calculator):
+    if not key.startswith("__"):
+        print(key)
+
+列出所有屬性 (所有成員方法) 類別:
+
+digitClicked
+unaryOperatorClicked
+additiveOperatorClicked
+multiplicativeOperatorClicked
+equalClicked
+pointClicked
+changeSignClicked
+backspaceClicked
+clear
+clearAll
+clearMemory
+readMemory
+setMemory
+addToMemory
+createButton
+abortOperation
+calculate</t>
 </tnodes>
 </leo_file>
