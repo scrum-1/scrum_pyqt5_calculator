@@ -246,7 +246,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Calculator"))
         self.clearMemoryButton.setText(_translate("Dialog", "MC"))
         self.seven.setText(_translate("Dialog", "7"))
         self.eight.setText(_translate("Dialog", "8"))

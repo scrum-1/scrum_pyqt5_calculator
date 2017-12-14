@@ -6,8 +6,8 @@ Module implementing Dialog.
 
 #from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QDialog
-
 from .Ui_Dialog import Ui_Dialog
+# 導入數學模組
 import math
 
 
@@ -31,6 +31,7 @@ class Dialog(QDialog, Ui_Dialog):
         
         # 起始 display 為 0
         self.display.setText("0")
+        
         # 以上程式碼由 Eric6 表單頁面中的滑鼠右鍵, Generate Dialog Code 指令產生
         # 當多個 signal 同時指向同一個 slot 處理時, 採用 for loop
         num_button = [self.one,  self.two,  \
@@ -244,7 +245,6 @@ class Dialog(QDialog, Ui_Dialog):
             self.factorSoFar /= rightOperand
 
         return True
-
 
     def pointClicked(self):
         if self.waitingForOperand:
