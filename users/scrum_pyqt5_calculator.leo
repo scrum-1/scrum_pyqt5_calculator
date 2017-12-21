@@ -18,6 +18,59 @@
 </v>
 <v t="leo.20171122224218.1"><vh>目錄規劃</vh></v>
 <v t="leo.20171128054443.1"><vh>第十二週練習</vh></v>
+<v t="leo1.20171221091300.1" a="E"><vh>第十五週練習</vh>
+<v t="leo1.20171221092733.1"><vh>@path ./../eric6_project</vh>
+<v t="leo1.20171221092753.1"><vh>@auto ref.py</vh></v>
+</v>
+<v t="leo1.20171221093153.1" a="E"><vh>@path ./../final_project</vh>
+<v t="leo1.20171221093205.1"><vh>@path ui</vh>
+<v t="leo1.20171221093225.1"><vh>@auto Dialog.py</vh></v>
+</v>
+</v>
+</v>
+<v t="leo1.20171221090839.1"><vh>Fossil SCM 內容</vh></v>
+<v t="leo1.20171221090811.1" a="E"><vh>期末報告編寫</vh>
+<v t="leo1.20171221090921.1"><vh>@button Report pdf</vh></v>
+<v t="leo1.20171221090954.1" a="E"><vh>@path ./../report</vh>
+<v t="leo1.20171221091031.1" a="E"><vh>@path markdown</vh>
+<v t="leo1.20171221091031.2"><vh>@edit reference.md</vh></v>
+<v t="leo1.20171221091031.3"><vh>@edit refer.bib</vh></v>
+<v t="leo1.20171221091031.4" a="E"><vh>封面以及摘要</vh>
+<v t="leo1.20171221091031.5" a="E"><vh>@clean cover_and_abstract.md</vh>
+<v t="leo1.20171221091031.6"><vh>摘要</vh></v>
+</v>
+</v>
+<v t="leo1.20171221091031.7" a="E"><vh>各章節內容</vh>
+<v t="leo1.20171221091031.8" a="E"><vh>@path paragraph</vh>
+<v t="leo1.20171221091031.9" a="E"><vh>@clean introduction.md</vh>
+<v t="leo1.20171221091031.10"><vh>前言內容</vh></v>
+</v>
+<v t="leo1.20171221091031.11" a="E"><vh>@clean portable_system.md</vh>
+<v t="leo1.20171221091031.12"><vh>可攜程式系統介紹</vh></v>
+</v>
+<v t="leo1.20171221091031.13" a="E"><vh>@clean python_introduction.md</vh>
+<v t="leo1.20171221091031.14"><vh>Python 程式語法介紹</vh></v>
+</v>
+<v t="leo1.20171221091031.15" a="E"><vh>@clean pyqt5_introduction.md</vh>
+<v t="leo1.20171221091031.16"><vh>PyQt5 語法介紹</vh></v>
+</v>
+<v t="leo1.20171221091031.17" a="E"><vh>@clean calculator.md</vh>
+<v t="leo1.20171221091031.18"><vh>計算機程式內容</vh></v>
+</v>
+<v t="leo1.20171221091031.19" a="E"><vh>@clean discussion.md</vh>
+<v t="leo1.20171221091031.20"><vh>程式開發心得</vh></v>
+</v>
+<v t="leo1.20171221091031.21" a="E"><vh>@clean results.md</vh>
+<v t="leo1.20171221091031.22"><vh>期末報告結論</vh></v>
+</v>
+<v t="leo1.20171221091031.23" a="E"><vh>@clean appendix.md</vh>
+<v t="leo1.20171221091031.24"><vh>附錄</vh></v>
+</v>
+</v>
+</v>
+</v>
+</v>
+</v>
 </vnodes>
 <tnodes>
 <t tx="leo.20171122223841.1"></t>
@@ -175,5 +228,288 @@ addToMemory
 createButton
 abortOperation
 calculate</t>
+<t tx="leo1.20171221090811.1"></t>
+<t tx="leo1.20171221090839.1"></t>
+<t tx="leo1.20171221090921.1">@language python
+filename = "report"
+import os, platform
+# 更換目錄到 markdown 
+os.chdir("./../report/markdown")
+
+# 若在 Linux 環境則使用 ukai.ttc 系統字形
+if platform.system().lower()=="linux": font = "ukai.ttc"
+# 在 windows 環境使用 SimSun 字形
+elif platform.system().lower()=="windows": font = "SimSun"
+else: font = "Arial"
+fontsize = "12"
+margin = "1in"
+# --pdf-engine 使用 xelatex
+# lang 請參照 https://tools.ietf.org/html/bcp47, 這裡的 zh-cmn 為 Mandarin Chinese 國語
+# -V lang=zh-cmn 為一組 key=value 對應的 Variable 設定
+# -N 表示 Number section headings in LaTeX, ConTeXt, HTML, or EPUB output. By default, sections are not numbered.
+settingFlag = "--pdf-engine=xelatex -V lang=zh-cmn -N --toc --highlight-style kate -V documentclass=report  --filter pandoc-fignos --filter pandoc-tablenos --template=template.tex -V \"CJKmainfont:{0}\" -V fontsize={1}pt -V geometry:margin={2} --bibliography=refer.bib --csl=ieee.csl".format(font, fontsize, margin)
+g.es("---Pandoc---")
+
+# 選擇所要納入的 Markdown 檔案, 不納入的檔案名稱前方加上  # 即可
+chapter_list = " ".join("./paragraph/" + i for i in [
+"introduction.md",
+"portable_system.md", 
+"python_introduction.md", 
+"pyqt5_introduction.md", 
+"calculator.md", 
+"discussion.md", 
+"results.md", 
+])
+
+# 若系統並未正確轉檔, 可以將 os.system 改為 g.es 表示要使用 Leo Editor 的 global 物件中的 echo string 將指令印在 log 區
+# 然後複製指令, 然後在命令列視窗中的 markdown 目錄中執行, 就可以得到錯誤訊息
+# 或許可以再從 https://stackoverflow.com/questions/26005583/return-value-of-x-os-system 中的建議改進此一指令
+g.es(os.system("pandoc cover_and_abstract.md " + chapter_list + " reference.md -o ../pdf/report.pdf {}".format(settingFlag)))
+g.es("pandoc cover_and_abstract.md " + chapter_list + " reference.md -o ../pdf/report.pdf {}".format(settingFlag))
+g.es("PDF 轉換完畢")
+g.es('-'*12)</t>
+<t tx="leo1.20171221090954.1"></t>
+<t tx="leo1.20171221091031.1"></t>
+<t tx="leo1.20171221091031.10">前言內容。
+
+\ 
+
+一個範例數學式：$$\beta=\cos^{-1}{\frac{L0^{2}+d_{AB}^{2}-R0^{2}}{2\times{L0\times{d_{AB}}}}}$$
+
+\ 
+
+關於數學式可以參考這裡：[http://www.hostmath.com/][]
+
+[http://www.hostmath.com/]: http://www.hostmath.com/
+
+提及了某篇刊物[@myart]在這裡。
+</t>
+<t tx="leo1.20171221091031.11">可攜程式系統介紹
+===
+
+可攜程式系統介紹
+
+@others</t>
+<t tx="leo1.20171221091031.12">啟動與關閉
+---
+
+Windows 的內容
+
+有一張圖片：
+
+![Kmol][]
+
+稱為圖 {@fig:駱駝}。
+
+各 md 檔案可以在 images 目錄下自訂與 md 檔案名稱相同的子目錄存放影像檔案
+
+啟動與關閉2
+---</t>
+<t tx="leo1.20171221091031.13">Python 程式語法
+===
+
+Python 程式語法
+
+@others</t>
+<t tx="leo1.20171221091031.14">變數命名
+---
+
+IPv4 的內容
+
+有一張圖片：
+
+![Kmol][]
+
+稱為圖 {@fig:駱駝}。
+
+各 md 檔案可以在 images 目錄下自訂與 md 檔案名稱相同的子目錄存放影像檔案
+
+[Kmol]: ./images/kmol.png {#fig:駱駝}
+
+print 函式
+---
+
+重複迴圈
+---
+
+判斷式
+---
+
+數列
+---</t>
+<t tx="leo1.20171221091031.15"> PyQt5 簡介
+===
+
+說明 PyQt5 基本架構與程式開發流程
+
+@others</t>
+<t tx="leo1.20171221091031.16">PyQt5 架構
+---
+
+C 的內容
+
+其中包含一個表格：
+
+Table: Python 網際框架比較 {#tbl:網際框架}
+
+| Framework | Started | Py2 | Py3 | ORM | Template Engine | Auth Moudule | Database Admin | Project Scale |
+|:---------:|:-------:|:---:|:---:|:---:|:---------------:|:------------:|:--------------:|:-------------:|
+| Pyramid | 2005 | V | V |  |  | V |  | large |
+| Django | 2006 | V | V | V | V | V | V | large |
+| Flask | 2010 | V |  |  |  |  |  | small |
+
+稱為表 {@tbl:網際框架}。
+
+Table: 價目表 {#tbl:價目表}
+
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+
+稱為表 {@tbl:價目表}。
+
+關於表格生成可以參考這裡：[http://www.tablesgenerator.com/markdown_tables]
+
+[http://www.tablesgenerator.com/markdown_tables]: http://www.tablesgenerator.com/markdown_tables
+
+</t>
+<t tx="leo1.20171221091031.17">Calculator 程式
+===
+
+Calculator 程式細部說明
+
+@others</t>
+<t tx="leo1.20171221091031.18">建立對話框
+---
+
+自動控制 的內容
+
+其中包含一個表格：
+
+Table: Python 網際框架比較 {#tbl:網際框架}
+
+| Framework | Started | Py2 | Py3 | ORM | Template Engine | Auth Moudule | Database Admin | Project Scale |
+|:---------:|:-------:|:---:|:---:|:---:|:---------------:|:------------:|:--------------:|:-------------:|
+| Pyramid | 2005 | V | V |  |  | V |  | large |
+| Django | 2006 | V | V | V | V | V | V | large |
+| Flask | 2010 | V |  |  |  |  |  | small |
+
+稱為表 {@tbl:網際框架}。
+
+Table: 價目表 {#tbl:價目表}
+
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+
+稱為表 {@tbl:價目表}。
+
+關於表格生成可以參考這裡：[http://www.tablesgenerator.com/markdown_tables]
+
+[http://www.tablesgenerator.com/markdown_tables]: http://www.tablesgenerator.com/markdown_tables
+
+建立按鈕
+---
+
+建立程式碼
+---
+
+</t>
+<t tx="leo1.20171221091031.19">心得
+===
+
+期末報告心得
+
+@others</t>
+<t tx="leo1.20171221091031.20">Fossil SCM
+---
+
+網誌心得
+---
+
+Github 協同倉儲
+---
+
+學員心得
+---
+
+說明各學員任務與執行過程</t>
+<t tx="leo1.20171221091031.21">結論
+===
+
+期末報告結論
+
+@others</t>
+<t tx="leo1.20171221091031.22">結論與建議
+---
+
+結論與建議內容</t>
+<t tx="leo1.20171221091031.23">附錄
+===
+
+附錄內容
+
+@others</t>
+<t tx="leo1.20171221091031.24">專案執行會議紀錄
+---
+
+操作過程照片
+---
+
+操作過程照片</t>
+<t tx="leo1.20171221091031.4"></t>
+<t tx="leo1.20171221091031.5">---
+university_zh: '國立虎尾科技大學'
+institute_zh: '機械設計工程系'
+category_zh: '計算機程式 ag1 期末報告'
+title_zh: 'PyQt5 事件導向計算器'
+title_en: 'PyQt5 Event-Driven Calculator Project-under scrum1'
+author:
+- 設計二乙 1731001 XXX
+- 設計二乙 1731001 XXX
+- 設計二乙 1731001 XXX
+- 設計二乙 1731002 XXX
+- 設計二乙 1731002 XXX
+
+advisor_zh: '嚴家銘'
+date: '2017.12.18'
+---
+
+@others
+</t>
+<t tx="leo1.20171221091031.6">---
+abstract: |
+    這裡是摘要內容。A pipe character, followed by an indented block of text is treated as a literal block, in which newlines are preserved throughout the block, including the final newline.
+    
+    + 以 YAML 的方式插入。
+    + The '+' indicator says to keep newlines at the end of text blocks.
+    + 使用 Markdown 語法。
+    + 前面使用加號
+    
+    本研究的重點在於 ...
+---
+
+
+</t>
+<t tx="leo1.20171221091031.7"></t>
+<t tx="leo1.20171221091031.8"></t>
+<t tx="leo1.20171221091031.9">前言
+===
+
+計算器程式期末報告前言
+
+@others</t>
+<t tx="leo1.20171221091300.1">確定數字按鈕可以點擊後, 列出字串堆疊的數字
+
+如何讓 + 或 - 按鈕可以運作, 按下 13 + 5 = 顯示幕中會出現 18
+
+過程中有那些狀態必須判斷與隨情況重置?</t>
+<t tx="leo1.20171221092733.1"></t>
+<t tx="leo1.20171221093153.1"></t>
+<t tx="leo1.20171221093205.1"></t>
 </tnodes>
 </leo_file>
