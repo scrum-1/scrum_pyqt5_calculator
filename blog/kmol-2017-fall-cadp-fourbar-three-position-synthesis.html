@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>CADP 鋼球運動系統電腦輔助設計 - 2017Fall CADP&CP (虎尾科大MDE)</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+-->
+
+<!-- for LaTeX equations -->
+<script src="./../data/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+
+<link rel="canonical" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-cadp-fourbar-three-position-synthesis.html">
+
+        <meta name="author" content="yen" />
+        <meta name="keywords" content="2017fall,cadp,fourbar,synthesis" />
+        <meta name="description" content="2017 Fall CADP 課程的機電資整合實習題目為: 可重複循環運作的鋼球運動系統, 其中包括機械領域的: 機構運球系統與模組化軌道設計, 電子領域的: Arduino 伺服馬達控制設計, 以及資訊領域的: PyQt5 監控程式系統設計等三個部分." />
+
+        <meta property="og:site_name" content="2017Fall CADP&CP (虎尾科大MDE)" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="CADP 鋼球運動系統電腦輔助設計"/>
+        <meta property="og:url" content="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-cadp-fourbar-three-position-synthesis.html"/>
+        <meta property="og:description" content="2017 Fall CADP 課程的機電資整合實習題目為: 可重複循環運作的鋼球運動系統, 其中包括機械領域的: 機構運球系統與模組化軌道設計, 電子領域的: Arduino 伺服馬達控制設計, 以及資訊領域的: PyQt5 監控程式系統設計等三個部分."/>
+        <meta property="article:published_time" content="2017-11-14" />
+            <meta property="article:section" content="Course" />
+            <meta property="article:tag" content="2017fall" />
+            <meta property="article:tag" content="cadp" />
+            <meta property="article:tag" content="fourbar" />
+            <meta property="article:tag" content="synthesis" />
+            <meta property="article:author" content="yen" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/bootstrap.united.min.css" type="text/css"/>
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/style.css" type="text/css"/>
+
+        <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="2017Fall CADP&CP (虎尾科大MDE) ATOM Feed"/>
+
+<!-- for img border -->
+  <style type="text/css">
+.border { 
+   border:2px solid black;
+}
+table, th, td {
+   border: 1px solid black;
+    padding: 15px;
+    text-align: left;
+}
+  </style>
+  
+<script type="text/javascript" src="./../data/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.min.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.js"></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "./../data/syntaxhighlighter/shCore.css";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "./../data/syntaxhighlighter/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+<!-- for table style start -->
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+}
+</style>
+<!-- for table style end -->
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/" class="navbar-brand">
+2017Fall CADP&CP (虎尾科大MDE)            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="pages/about/">About</a></li>
+                        <li class="active">
+                            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">Course</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-cadp-fourbar-three-position-synthesis.html"
+                       rel="bookmark"
+                       title="Permalink to CADP 鋼球運動系統電腦輔助設計">
+                        CADP 鋼球運動系統電腦輔助設計
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-11-14T11:00:00+08:00"> 週二 14 十一月 2017</time>
+    </span>
+            <span class="label label-default">By</span>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/author/yen.html"><i class="fa fa-user"></i> yen</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/2017fall.html">2017fall</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/cadp.html">cadp</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/fourbar.html">fourbar</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/synthesis.html">synthesis</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>2017 Fall CADP 課程的機電資整合實習題目為: 可重複循環運作的鋼球運動系統, 其中包括<span style="background-color: #ffff00;">機械領域</span>的: 機構運球系統與模組化軌道設計, <span style="background-color: #ffff00;">電子領域</span>的: Arduino 伺服馬達控制設計, 以及<span style="background-color: #ffff00;">資訊領域</span>的: <a href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> 監控程式系統設計等三個部分.</p>
+
+
+<iframe src="https://player.vimeo.com/video/243063216" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/243063216">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 二甲第十週第一部分, 說明何謂電腦輔助設計? 以及如何進行機電資實習專案.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/243070610" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/243070610">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 二甲第十週第二部分, 說明如何利用 AutoDesk TinkerCAD 中的 Circuits 模擬 Arduino 伺服馬達控制.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/243073950" width="640" height="513" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/243073950">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 二甲第十週第三部分, 從 TinkerCAD 中下載 Marble Machine 軌道範例, 轉進 V-rep 模擬.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/243129278" width="640" height="333" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/243129278">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 二甲第十週第四部分, 從 Thingiverse 中下載 Marble Machine 軌道範例, 轉進 V-rep 模擬.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<h3>機電資整合鋼球運動系統設計要求</h3>
+<p>其中, <span style="background-color: #ffff00;">連桿機構零組件</span>可以採用系上既有的 <a href="http://solvespace.com">Solvespace</a>、<a href="https://www.onshape.com/">Onshape</a>、<a href="http://www.solidworks.com/">Dassault Solidworks</a>、<a href="https://www.autodesk.com/products/inventor/overview">AutoDesk Inventor</a>、<a href="https://a360.autodesk.com/">AutoDesk A360</a> 或 <a href="https://www.ptc.com/en/products/cad/creo">PTC Creo</a> 繪製, <span style="background-color: #ffff00;">機構與鋼球運動模擬</span>可以採用 <a href="http://www.coppeliarobotics.com/">V-rep</a> 或 <a href="https://www.blender.org/">Blender</a> 進行, <span style="background-color: #ffff00;">控制</span> <a href="http://www.coppeliarobotics.com/">V-rep</a> 模擬系統的外部程式套件, 可以採用 <a href="http://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm">Python3 remote API</a> 架構完成, <span style="background-color: #ffff00;">電子系統</span>可以採用 AutoDesk <a href="https://www.tinkercad.com/">TinkerCAD</a> 模擬, 用來記錄鋼球通過關鍵點次數, 以及鋼球運動總距離及總爬升高度的<span style="background-color: #ffff00;">資訊系統</span>, 則可以採用 <a href="https://www.python.org/">Python3</a> 以及 <a href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> 建置, 而主要機構零組件則可以採系上既有的 3D 印表機組列印.</p>
+<p>各組所完成的"機電資整合鋼球運動系統", 必須包含一個主要的鋼球運送機構模組 (以下稱為主模組), 並且能夠納入各學員所完成的軌道機構模組 (以下稱為軌道模組), 進行循環運動, 且<span style="background-color: #ffff00;">整體系統的尺寸必須能夠放入郵局 <a href="https://www.post.gov.tw/post/internet/box/index_2_2.jsp?id=3">Box2 紙箱</a>中(規格: 23×18×19(cm)</span>.</p>
+<p>當各組開始啟動"機電資整合鋼球運動系統"專題製作時, 各學員必須將所有細節紀錄在 <a href="https://cadpa.kmol.info">二甲</a> 與 <a href="https://cadpb.kmol.info">二乙</a> 所分配到的 <a href="https://www.fossil-scm.org">Fossil SCM</a> 伺服器主機中, 且各學員在近端隨身碟必須自行保全所有與專題相關的資料, 專題完成後, 再將各學員的 <a href="https://www.fossil-scm.org">Fossil SCM</a> 倉儲同步到 <a href="https://github.com/">Github</a> 倉儲.</p>
+<p>各班依照座位, 前後三人共六人為一小組, 必須完成一套主模組設計, 各學員則分別提供一組軌道模組配合, 進行循環運動模擬. 第十三週起則每三小組合併成一大組, 根據學員投票決定<span style="background-color: #ffff00;">實作一組主模組, 各學員則必須實作一組軌道系統與主模組配合運作</span>.</p>
+<p>最後各大組以協同方式完成電腦輔助設計實習報告, 各學員則根據所參與內容, 完成個人期末報告, 分別以 Reveal.js 網際簡報、Pelican 網誌、Vimeo 與 Youtube 影片呈現.</p>
+<h3>機構運球系統與模組化軌道設計</h3>
+<p>平面四連桿機構合成</p>
+<p>利用平面四連桿, 指定浮動桿從模組軌道最低點位置 (10.50 mm), 將球運送到模組軌道最高點位置 (135.59 mm), 額外再指定中間通過的一組浮動桿位置, 以三個位置為設計目標, 透過機構合成計算出兩個機構固定點的位置, 利用模擬方法驗證.</p>
+<p>平面四連桿浮動桿通過三個特定點圖示:</p>
+<p><img src="./../data/images/fourbar_linkage_three_position_problem.png"></img></p>
+<p>上述機構合成題目可以採圖解法求出四連桿兩個固定點的位置, 以及各連桿的尺寸, 也可以利用下列 <a href="https://www.python.org/">Python3</a> 程式, 以 Symbolic 及 Numerical 運算方法, 計算出符合上述, 浮動桿通過三個選定位置的固定點座標:</p>
+<pre class="brush: python">
+from sympy.geometry import *
+from sympy import N
+# N(expr, &lt;args&gt;) 等於 sympify(expr).evalf(&lt;args&gt;)
+
+P1 = Point(-127.11, 37.29)
+P2 = Point(-89.42, 50.69)
+P3 = Point(-113.61, 73.77)
+P4 = Point(-74.73, 64.37)
+P5 = Point(-89.19, 88.52)
+P6 = Point(-56.84, 64.99)
+S1 = Segment(P1, P2)
+S2 = Segment(P3, P4)
+S3 = Segment(P5, P6)
+#print(N(S1.length)) # 求 numerical value
+#print(N(S2.length))
+#print(N(S3.length))
+
+#print(S1.slope)
+#print(S1.intersection(S2))
+#print(angle_between(S1, S2))
+
+# 求 L13, L35 通過兩線中點垂直線的交點, 即為固定點 1
+L13 = Line(P1, P3)
+L35 = Line(P3, P5)
+S13 = Segment(P1, P3)
+S35 = Segment(P3, P5)
+midS13 = S13.midpoint
+midS35 = S35.midpoint
+perL13 = L13.perpendicular_line(midS13)  # perpendicular line to L1
+perL35 = L35.perpendicular_line(midS35)  # perpendicular line to L2
+#print(L2.arbitrary_point() )           # parametric equation of L2
+#Point(4*t + 2, -3*t - 1)
+#print(L2.equation()    )               # algebraic equation of L2
+#3*x + 4*y - 2
+#print(L2.distance(P4))               # distance from P4 to L2
+print(N(perL13.intersection(perL35)[0], 3))
+
+# 求 L24, L46 通過兩線中點垂直線的交點, 即為固定點 2
+L24 = Line(P2, P4)
+L46 = Line(P4, P6)
+S24 = Segment(P2, P4)
+S46 = Segment(P4, P6)
+midS24 = S24.midpoint
+midS46 = S46.midpoint
+perL24 = L24.perpendicular_line(midS24)  # perpendicular line to L1
+perL46 = L46.perpendicular_line(midS46)  # perpendicular line to L2
+#print(L2.arbitrary_point() )           # parametric equation of L2
+#Point(4*t + 2, -3*t - 1)
+#print(L2.equation()    )               # algebraic equation of L2
+#3*x + 4*y - 2
+#print(L2.distance(P4))               # distance from P4 to L2
+print(N(perL24.intersection(perL46)[0], 3))
+</pre>
+
+<p>利用上述 Python3 程式計算出兩個固定點的座標位置分別位於 (-76.0, 39.1) 以及 (-64.9, 39.1):</p>
+<p><img src="./../data/images/fourbar_linkage_three_position_sympy.png"></img></p>
+<p>合成結果驗證:</p>
+<p><img src="./../data/images/fourbar_linkage_three_position_synthesis_result.gif"></img></p>
+<p>參考影片:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-CKgP_cueEw" frameborder="0" allowfullscreen></iframe>
+
+<p>平面六連桿機構合成</p>
+<p>平面八連桿機構合成</p>
+<p>模組化軌道設計</p>
+<p><a href="https://service.mde.tw:8443/downloads/2017fall_cadp_project_ref_papers.7z">平面機構合成參考論文</a> (只有在系上電腦可以下載)</p>
+<p>上述下載包括:</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X0700050X">The synthesis of six-bar linkages as constrained planar 3R chains</a> (2008)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X08000852">Kinematic analysis and synthesis of an adjustable six-bar linkage</a> (2009)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X1000056X">A GA–DE hybrid evolutionary algorithm for path synthesis of four-bar linkage</a> (2010)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X15001950">Coupler-curve synthesis of four-bar linkages via a novel formulation</a> (2015)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X1630129X">Synthesis of eight-bar linkages by constraining a 6R loop</a> (2016)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X15002001">Design of Stephenson linkages that guide a point along a specified trajectory</a> (2016)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S2213020916301379">Dimensional synthesis of six-bar Stephenson II linkage for fifteen precision points path generation</a> (2016)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X15002384">Kinematic synthesis of Stephenson III six-bar function generators</a> (2016)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X1730664X">Optimal design of toggle-linkage mechanism for clamping applications</a> (2017)</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0094114X16303755">Optimal synthesis of four-bar path generator linkages using circular proximity function</a> (2017)</p>
+<h3>Arduino 伺服馬達控制設計</h3>
+<p>伺服馬達控制模擬</p>
+<p>為了在實體 Arduino Uno 控制板連線操作之前, 可以利用網際 Auduino 控制板與電子元件系統進行模擬, 請各學員至 https://www.tinkercad.com 登記帳號, 登入後選擇左上角的 TinkerCAD 標誌連結後, 選擇 Circuits 進入電路設計與模擬, 操作畫面如下圖所示:</p>
+<p><img class="border" src="./../data/images/circuits_on_tinkercad.png"></img></p>
+<p>接著選擇 Arudino Uno 控制板與 Servo Motor, 然後接上電源與地線, 並將控制訊號接到 Auduino Uno 控制板的 PWM pin 9, 利用 Code Editor 納入下列 Arduino 程式, 再利用 upload and run 將程式編譯後上傳到虛擬的 Arduino Uno 控制板上執行, 就可以模擬 Servo Motor 持續左右各旋轉 180 度. 操作畫面如下圖所示: </p>
+<p><img class="border" src="./../data/images/arduino_uno_servo_on_tinkercad.png"></img></p>
+<h3>實體 Arduino Servo Motor Control</h3>
+<p>完成上述以 TinkerCAD 模擬伺服馬達的接線與程式執行之後, 接著操作實體 Arduino 控制板與 Servo Motor 的控制, 首先利用電腦驅動 Arduino 控制板, 然後再利用板子上的脈衝寬度調變 (PWM, Pulse Width Modulation) 訊號控制伺服馬達, 之後再利用傳動機構與資訊控制介面, 製作所需的機電資整合系統. 電子電機系統除了可以方便感測各種物理化學量外, 還能夠快速傳遞感測與命令訊號, 而機械系統則透過機構元件的組合, 扮演傳遞功率致動或抵抗外力撞擊與疲勞破壞的角色, 至於資訊系統則用來整合各種資訊, 用更友善的人機介面, 讓使用者更有效能地運用機電資系統產品.</p>
+<p><a href="https://service.mde.tw/public/arduino-1.8.4-windows.zip">https://service.mde.tw/public/arduino-1.8.4-windows.zip</a> 下載</p>
+<p>控制台 - 硬體與音效 - 裝置管理員 利用解開的 arduino driver 程式驅動 Arduino Uno 控制板, 並取得 COM 對應號碼, 例如: COM7, 之後的 Arduino 編譯後可以透過此 COM 埠號將程式上傳到控制板上執行.</p>
+<p>MG996R 伺服馬達</p>
+<p>棕色線 GND</p>
+<p>紅色線 V+5V</p>
+<p>橘色線 PWM</p>
+<p>控制程式:</p>
+<pre class="brush: cpp">
+#include &lt;Servo.h&gt;
+Servo myservo;  // 建立一個 servo 物件，最多可建立 12個 servo
+
+int pos = 0;    // 設定 Servo 位置的變數
+
+void setup() {
+  myservo.attach(9);  // 將 servo 物件連接到 pin 9
+}
+
+void loop() {
+  // 正轉 180度
+  for (pos = 0; pos &lt;= 180; pos += 1) // 從 0 度旋轉到 180 度，每次 1 度 
+  {     
+    myservo.write(pos);               // 告訴 servo 走到 'pos' 的位置
+    delay(15);                        // 等待 15ms 讓 servo 走到指定位置
+  }
+
+// 反轉 180度
+  for (pos = 180; pos &gt;= 0; pos -= 1) // 從 180 度旋轉到 0 度，每次 1 度 
+  { 
+    myservo.write(pos);               // 告訴 servo 走到 'pos' 的位置
+
+delay(15);                        // 等待 15ms 讓 servo 走到指定位置
+  }
+}
+</pre>
+
+<h3><a href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> 監控程式系統設計</h3>
+<p>視窗監控程式設計採用 <a href="https://www.python.org/">Python3</a> 與 <a href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a>, 在 <a href="https://eric-ide.python-projects.org/eric-download.html">Eric6</a> 整合開發環境中進行開發, 主要透過 <a href="http://www.coppeliarobotics.com/">V-rep</a> 的 <a href="http://www.coppeliarobotics.com/helpFiles/en/remoteApiFunctionsPython.htm">Python Remote API</a> 技術進行:</p>
+<iframe src="https://player.vimeo.com/video/244294061" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/244294061">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 二甲第十一週第二部分, 在期末機電資協同專案範例中, 加入感測器與控制用視窗程式示範</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<h3>機構概念設計到細部設計</h3>
+<p><img class="border" src="./../data/images/marble_machine_lifter_solvespace_to_onshape.png"></img></p>
+<p><a href="https://cad.onshape.com/documents/af5083bb5af6097a39dc6e03/w/7fac4e9c431f3ee7a487476d/e/bb0691e27e6b8aa8e77064c5">Onshape 零組件檔案</a></p>
+<iframe src="https://player.vimeo.com/video/244975623" width="640" height="343" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/244975623">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 第十二週延伸 Solvespace 中的機構合成概念設計, 在 Onshape 中完成細部零組件設計繪圖.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/244977249" width="640" height="343" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/244977249">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 第十二週利用 Solvespace 所建立的半圓形軌道, 轉入 V-rep 中進行機構導球測試.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/245322209" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/245322209">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 二乙第十二週第一部分, 說明各組員與分組的期末報告章節要求, 以及如何執行提球機構零組件設計與模擬.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/245325620" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/245325620">國立虎尾科技大學機械設計工程系電腦輔助設計實習 - 二乙第十二週第二部分, 說明如何將 Onshape 所完成的雙曲柄滑塊機構轉入 V-rep 進行動態模擬.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'kmol-2017-fall-cadp-fourbar-three-position-synthesis';
+                var disqus_url = 'https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-cadp-fourbar-three-position-synthesis.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-let-us-encrypt-intro.html">
+                            導入 Let's Encrypt 數位簽章
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-windows-calculator-development.html">
+                            視窗計算機程式開發
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-github-pages.html">
+                            Github 協同倉儲
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-event-driven-programming-design.html">
+                            事件導向程式設計
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pelican-and-pandoc-markdown-format.html">
+                            Pelican 與 Pandoc MD 導引
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/categories.html"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">
+                            <i class="fa fa-folder-open fa-lg"></i> Course
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/DandyDev/pelican-bootstrap3/" target="_blank">
+                pelican-bootstrap3
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/getpelican/pelican-plugins" target="_blank">
+                pelican-plugins
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/Tipue/Tipue-Search" target="_blank">
+                Tipue search
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 KMOL
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/bootstrap.min.js"></script>
+
+<!-- for https://github.com/jsor/lity lightbox video popup -->
+
+<link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/lity.css" rel="stylesheet">
+
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/lity.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+</body>
+</html>

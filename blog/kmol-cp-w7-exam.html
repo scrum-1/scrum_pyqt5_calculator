@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>CP 第七週線上考試 - 2017Fall CADP&CP (虎尾科大MDE)</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+-->
+
+<!-- for LaTeX equations -->
+<script src="./../data/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+
+<link rel="canonical" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-cp-w7-exam.html">
+
+        <meta name="author" content="yen" />
+        <meta name="keywords" content="2017fall,CP,Exam" />
+        <meta name="description" content="W7-W9 週為本學期期中階段的考試週, 其中第一堂課時間將要求學員直接利用教室中的電腦 ,以 ShareX 拍攝與課程相關的操作影片." />
+
+        <meta property="og:site_name" content="2017Fall CADP&CP (虎尾科大MDE)" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="CP 第七週線上考試"/>
+        <meta property="og:url" content="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-cp-w7-exam.html"/>
+        <meta property="og:description" content="W7-W9 週為本學期期中階段的考試週, 其中第一堂課時間將要求學員直接利用教室中的電腦 ,以 ShareX 拍攝與課程相關的操作影片."/>
+        <meta property="article:published_time" content="2017-10-20" />
+            <meta property="article:section" content="Course" />
+            <meta property="article:tag" content="2017fall" />
+            <meta property="article:tag" content="CP" />
+            <meta property="article:tag" content="Exam" />
+            <meta property="article:author" content="yen" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/bootstrap.united.min.css" type="text/css"/>
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/style.css" type="text/css"/>
+
+        <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="2017Fall CADP&CP (虎尾科大MDE) ATOM Feed"/>
+
+<!-- for img border -->
+  <style type="text/css">
+.border { 
+   border:2px solid black;
+}
+table, th, td {
+   border: 1px solid black;
+    padding: 15px;
+    text-align: left;
+}
+  </style>
+  
+<script type="text/javascript" src="./../data/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.min.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.js"></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "./../data/syntaxhighlighter/shCore.css";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "./../data/syntaxhighlighter/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+<!-- for table style start -->
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+}
+</style>
+<!-- for table style end -->
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/" class="navbar-brand">
+2017Fall CADP&CP (虎尾科大MDE)            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="pages/about/">About</a></li>
+                        <li class="active">
+                            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">Course</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-cp-w7-exam.html"
+                       rel="bookmark"
+                       title="Permalink to CP 第七週線上考試">
+                        CP 第七週線上考試
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-10-20T12:00:00+08:00"> 週五 20 十月 2017</time>
+    </span>
+            <span class="label label-default">By</span>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/author/yen.html"><i class="fa fa-user"></i> yen</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/2017fall.html">2017fall</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/cp.html">CP</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/exam.html">Exam</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>W7-W9 週為本學期期中階段的考試週, 其中第一堂課時間將要求學員直接利用教室中的電腦 ,以 ShareX 拍攝與課程相關的操作影片.</p>
+
+
+<h3>第七週上課時間規劃</h3>
+<p>其餘時間將繼續練習與 PyQt5 計算機程式有關的語法與操作步驟.</p>
+<p>第七週考試時間乙班 13:30-14:00, 甲班 08:20-08:50</p>
+<h3>考試要求</h3>
+<p>請錄下從隨身碟啟動系統開始, 到完成新增第七週個人倉儲網誌中的學習心得為止.</p>
+<div class="highlight"><pre><span></span>網誌標題為 計算機程式第七週學習心得
+網誌 html 檔名為 學號-w7-exam
+</pre></div>
+
+
+<p>過程中必須利用 SciTE 在螢幕右下方呈現各階段摘要說明, 說明最後則寫上"W7-學號-正在考試" 字樣.</p>
+<p>完成 mp4 檔案拍攝後, 必須冠上校名-系名-課程名稱-學號, 之後同時上傳到以個人學號註冊的 Vimeo 及 Youtube 影片存放區.</p>
+<h3>影片嵌入個人網誌</h3>
+<p>完成上述個人操作影片拍攝後, 必須改版上述第七週學習心得網誌中, 然後寫上其他操作心得後, 根據課程的評分規劃, 列出各項具體證據後, 在網誌中寫上自評期中成績.</p>
+<h3>考試範例影片:</h3>
+<iframe src="https://player.vimeo.com/video/239403841" width="640" height="347" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/239403841">cpb 4062 W7 考試</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<h3>電腦輔助設計室上網設定:</h3>
+<iframe src="https://player.vimeo.com/video/239923488" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/239923488">國立虎尾科技大學機械設計工程系計算機程式 - 一甲第七週第一部分, 說明有關電腦輔助設計室電腦網路連線設定與查驗指令.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<h3>變數命名規格, 函式定義與呼叫</h3>
+<iframe src="https://player.vimeo.com/video/239932484" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/239932484">國立虎尾科技大學機械設計工程系計算機程式 - 一甲第七週第二部分, 說明 Python 變數命名規格, 關鍵字以及如何利用重複迴圈定義列印字串的 diamond 函式.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<h3>Eric6 與 PyQt5</h3>
+<p>本週各學員將學會如何:</p>
+<div class="highlight"><pre><span></span>啟動  Eric6
+如何建立 Eric6 專案
+如何建立 Python3 程式碼
+如何執行 Python3 程式碼
+利用 Qt Designer 建立計算機表單
+如何編譯表單 .ui 檔案, 建立對應的 Python 程式
+</pre></div>
+
+
+<p>各學員學會上述各項操作後, 請在下課之前利用 ShareX 拍攝個人的練習過程, 並嵌入個人網誌中後, 註記學習心得.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'kmol-cp-w7-exam';
+                var disqus_url = 'https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-cp-w7-exam.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-let-us-encrypt-intro.html">
+                            導入 Let's Encrypt 數位簽章
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-windows-calculator-development.html">
+                            視窗計算機程式開發
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-github-pages.html">
+                            Github 協同倉儲
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-event-driven-programming-design.html">
+                            事件導向程式設計
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pelican-and-pandoc-markdown-format.html">
+                            Pelican 與 Pandoc MD 導引
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/categories.html"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">
+                            <i class="fa fa-folder-open fa-lg"></i> Course
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/DandyDev/pelican-bootstrap3/" target="_blank">
+                pelican-bootstrap3
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/getpelican/pelican-plugins" target="_blank">
+                pelican-plugins
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/Tipue/Tipue-Search" target="_blank">
+                Tipue search
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 KMOL
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/bootstrap.min.js"></script>
+
+<!-- for https://github.com/jsor/lity lightbox video popup -->
+
+<link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/lity.css" rel="stylesheet">
+
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/lity.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+</body>
+</html>

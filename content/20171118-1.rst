@@ -1,0 +1,92 @@
+reStructuredText 格式網誌
+#############################
+
+:date: 2017-11-18 11:20
+:modified: 2017-11-18 18:40
+:tags: reStructuredText, TeX
+:category: Course
+:slug: kmol-2017-fall-restrcturedtext-format-blog
+:status: published
+:authors: yen
+
+Pelican 靜態網誌的文章編寫, 可以採 Markdown_ 格式, 存為 .md 檔案, 也可以採 reStructuredText_ 格式, 存為 .rst 
+
+.. PELICAN_END_SUMMARY
+
+Markdown_ 格式的資料, 主要應用於網頁, 而 reStructuredText_ 格式的資料, 則設計用來編寫科技文章.
+
+Sphinx 
+---------------
+
+Sphinx_ 是 Python 專用的說明文件產生器, 可以將 reStructuredText_ 格式的內容轉為一般 HTML、Windows HTML Help、LaTeX、ePub、Texinfo、manual pages 與 plain text 格式內容.
+
+Sphinx_ 的功能:
+
+- Output formats: HTML (including Windows HTML Help), LaTeX_ (for printable PDF versions), ePub, Texinfo, manual pages, plain text
+
+- Extensive cross-references: semantic markup and automatic links for functions, classes, citations, glossary terms and similar pieces of information
+
+- Hierarchical structure: easy definition of a document tree, with automatic links to siblings, parents and children
+
+- Automatic indices: general index as well as a language-specific module indices
+
+- Code handling: automatic highlighting using the Pygments highlighter
+
+- Extensions: automatic testing of code snippets, inclusion of docstrings from Python modules (API docs), and more
+
+- Contributed extensions: more than 50 extensions contributed by users in a second repository; most of them installable from PyPI
+
+.. _LaTeX: https://www.latex-project.org
+.. _Markdown: https://en.wikipedia.org/wiki/Markdown
+.. _Pandoc: http://pandoc.org
+.. _PandocUserGuide: http://pandoc.org/MANUAL.html
+.. _reStructuredText: https://en.wikipedia.org/wiki/ReStructuredText
+.. _Sphinx: http://www.sphinx-doc.org
+
+.. code-block:: python
+
+   print("Pelican is a static site generator.")
+
+連結資料的引用, 可以在設定內容之前, 也可以放在設定內容之後, 例如: reStructuredText_ 連結的引用設在定義連結之後, 而上一段同一關鍵字的連結引用, 則放在連結設定定義之前 換言之, 整個文章會用到的連結資料, 可以統一整理在 .rst 文章任何位置後, 再用於編輯文章時使用.
+
+Pandoc 手冊
+--------------------
+
+PandocUserGuide_ 是 Pandoc_ 的使用者手冊
+
+以下為 bullet list 用法:
+
+- This is the first bullet list item.  The blank line above the
+  first list item is required; blank lines between list items
+  (such as below this paragraph) are optional.
+
+- This is the first paragraph in the second item in the list.
+
+  This is the second paragraph in the second item in the list.
+  The blank line above this paragraph is required.  The left edge
+  of this paragraph lines up with the paragraph above, both
+  indented relative to the bullet.
+
+  - This is a sublist.  The bullet lines up with the left edge of
+    the text blocks above.  A sublist is a new list so requires a
+    blank line above and below.
+
+- This is the third item of the main list.
+
+This paragraph is not part of the list.
+
+文章 Status
+----------------------
+
+Pelican 靜態網誌中所準備的文章, 目前放在 content 目錄中, 可以使用 .md 或者 .rst 的格式, 假如文章尚未完成, 使用者可以在文章標題欄位中, 加入一個 status 欄位, 若為 draft, 表示文章為草稿, 轉檔時不會轉為 html 格式, 若 status 為內定的 published, 則表示文章已經完成, 可以透過 Leo Editor 的轉檔按鈕轉入 Blog 內容.
+
+Pelican Plugins
+----------------------------
+
+目前所使用的 Pelican 網誌, 設定時納入 summary 的延伸功能, 使用者可以在文章中加入內容為 PELICAN_END_SUMMARY 的註解, 在 Markdown 中可以使用 html 註解格式, 而在 rst 中, 則可以在前面加入兩個逗號, 表示該分隔註解與內文的標註為註解, Pelican 網誌系統轉檔時, 只會啟用分隔功能, 不會納入該行資料.
+
+:abbr:`Summary Plugin (https://github.com/getpelican/pelican-plugins/tree/master/summary)`
+
+
+
+

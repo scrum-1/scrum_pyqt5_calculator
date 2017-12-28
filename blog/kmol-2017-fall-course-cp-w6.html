@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>2017 Fall CP 第六週 - Python3 程式語法練習 - 2017Fall CADP&CP (虎尾科大MDE)</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+-->
+
+<!-- for LaTeX equations -->
+<script src="./../data/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+
+<link rel="canonical" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-course-cp-w6.html">
+
+        <meta name="author" content="yen" />
+        <meta name="keywords" content="2017fall,CP,Eric6" />
+        <meta name="description" content="本週起開始使用 Eric6 IDE 建立 PyQt5 視窗程式, 計算器程式的圖形介面將從 Qt Designer 中, 以滑鼠及視覺化模式建立, 之後再轉為 .py 程式後, 與隨後的程式邏輯進行互動. 請使用者自行下載 Lean Python 電子書與範例程式配合學習." />
+
+        <meta property="og:site_name" content="2017Fall CADP&CP (虎尾科大MDE)" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="2017 Fall CP 第六週 - Python3 程式語法練習"/>
+        <meta property="og:url" content="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-course-cp-w6.html"/>
+        <meta property="og:description" content="本週起開始使用 Eric6 IDE 建立 PyQt5 視窗程式, 計算器程式的圖形介面將從 Qt Designer 中, 以滑鼠及視覺化模式建立, 之後再轉為 .py 程式後, 與隨後的程式邏輯進行互動. 請使用者自行下載 Lean Python 電子書與範例程式配合學習."/>
+        <meta property="article:published_time" content="2017-10-17" />
+            <meta property="article:section" content="Course" />
+            <meta property="article:tag" content="2017fall" />
+            <meta property="article:tag" content="CP" />
+            <meta property="article:tag" content="Eric6" />
+            <meta property="article:author" content="yen" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/bootstrap.united.min.css" type="text/css"/>
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/style.css" type="text/css"/>
+
+        <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="2017Fall CADP&CP (虎尾科大MDE) ATOM Feed"/>
+
+<!-- for img border -->
+  <style type="text/css">
+.border { 
+   border:2px solid black;
+}
+table, th, td {
+   border: 1px solid black;
+    padding: 15px;
+    text-align: left;
+}
+  </style>
+  
+<script type="text/javascript" src="./../data/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.min.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.js"></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "./../data/syntaxhighlighter/shCore.css";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "./../data/syntaxhighlighter/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+<!-- for table style start -->
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+}
+</style>
+<!-- for table style end -->
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/" class="navbar-brand">
+2017Fall CADP&CP (虎尾科大MDE)            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="pages/about/">About</a></li>
+                        <li class="active">
+                            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">Course</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-course-cp-w6.html"
+                       rel="bookmark"
+                       title="Permalink to 2017 Fall CP 第六週 - Python3 程式語法練習">
+                        2017 Fall CP 第六週 - Python3 程式語法練習
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-10-17T11:00:00+08:00"> 週二 17 十月 2017</time>
+    </span>
+            <span class="label label-default">By</span>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/author/yen.html"><i class="fa fa-user"></i> yen</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/2017fall.html">2017fall</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/cp.html">CP</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/eric6.html">Eric6</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>本週起開始使用 Eric6 IDE 建立 PyQt5 視窗程式, 計算器程式的圖形介面將從 Qt Designer 中, 以滑鼠及視覺化模式建立, 之後再轉為 .py 程式後, 與隨後的程式邏輯進行互動. 請使用者自行下載 <a href="https://link.springer.com/book/10.1007/978-1-4842-2385-7">Lean Python</a> 電子書與<a href="https://github.com/Apress/lean-python">範例程式</a>配合學習.</p>
+
+
+<iframe src="https://player.vimeo.com/video/238351636" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/238351636">國立虎尾科技大學機械設計工程系計算機程式 - 一乙第六週第一部分, 從最原始的 fossil init 在伺服器建立倉儲開始, 說明如何建立網誌與投影片架構.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/238354919" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/238354919">國立虎尾科技大學機械設計工程系計算機程式 - 一乙第六週第二部分, 說明當使用  Fossil SCM 倉儲時, 如何在操作系統與 Pelican 轉檔過程正確改版.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/238362560" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/238362560">國立虎尾科技大學機械設計工程系計算機程式 - 一乙第六週第三部分, 說明如何 git clone Github 上的倉儲, 如何使用 eric6 IDE 開始開發 PyQt5 程式.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<!-- 導入 FileSaver 與 filereader -->
+
+<script type="text/javascript" src="./../ace/FileSaver.min.js"></script>
+
+<script type="text/javascript" src="./../ace/filereader.js"></script>
+
+<!-- 導入最新版的 Brython 標準程式庫 3.3.4 -->
+
+<script type="text/javascript" src="./../data/Brython-3.3.4/brython_dist.js">
+</script>
+
+<!-- 導入平面機構模擬所需程式庫 -->
+
+<!-- sylvester.js 為向量、矩陣與幾何程式庫 http://sylvester.jcoglan.com/ -->
+
+<script src="./../data/sylvester/sylvester.js"></script>
+
+<!-- PrairieDraw.js 為延伸 sylvester.js 的 html5 canvas 繪圖應用程式庫 https://github.com/martin70/PrairieDraw.js -->
+
+<script src="./../data/sylvester/PrairieDraw.js"></script>
+
+<style>
+canvas {
+    border: 1px solid black;
+}
+</style>
+
+<!-- 啟動 Brython 時, 設定 pythonpath 為 data/py, 並將 script1.py 放入, 以便取代 3.2.9 之前版本的 script id 導入 -->
+
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['./../data/py']});
+}
+</script>
+
+<!-- 以下執行 Brython 程式 -->
+
+<script src="./../ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="./../ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="./../ace/mode-python3.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="./../ace/snippets/python.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱-->
+
+<script type="text/javascript">
+function doSave(storage_id, filename){
+    var blob = new Blob([localStorage[storage_id]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById(filename).value
+    saveAs(blob, filename+".py");
+}
+</script>
+
+<p>編寫 Python3 程式邏輯之前必須先了解基本的程式語法, 其中包括:</p>
+<h3>Python3 變數命名規則與關鍵字</h3>
+<p>Python 英文變數命名規格</p>
+<div class="highlight"><pre><span></span>變數必須以英文字母大寫或小寫或底線開頭
+變數其餘字元可以是英文大小寫字母, 數字或底線
+變數區分英文大小寫
+變數不限字元長度
+不可使用關鍵字當作變數名稱
+</pre></div>
+
+
+<p>使用者可以利用以下程式列出所使用 Python 的版次與關鍵字:</p>
+<!-- 印出版次與關鍵字程式 -->
+
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+# Brython 3.3.4 內建的 container 名稱為  'container' 且 turtle 輸出為 svg 必須使用 div 訂定 id
+Ace = ace.Editor(editor_id="kw_editor", console_id="kw_console", container_id="kw__container", storage_id="kw_py_src" )
+
+Ace.editor.setValue('''# 導入 sys 模組
+import sys
+# 導入 keyword 模組
+import keyword
+
+# 利用 sys 模組中的 version_info 印出 Python 版次
+print("Python version: ", sys.version_info)
+# 利用 keyword 模組中的 kwlist 印出關鍵字
+print("Python keywords: ", keyword.kwlist)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['kw_run'].bind('click', Ace.run)
+doc['kw_show_console'].bind('click', Ace.show_console)
+doc['kw_clear_console'].bind('click', Ace.clear_console)
+</script>
+
+<!-- 用來顯示程式碼的 editor 區域 -->
+
+<div id="kw_editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="kw_filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('kw_py_src', 'kw_filename');"/>
+</form>
+
+<p><button id="kw_run">Run</button>
+<button id="kw_show_console">Output</button>
+<button id="kw_clear_console">清除</button>
+<div style="width:100%;height:100%;">
+<textarea id="kw_console" autocomplete="off"></textarea>
+</div></p>
+<p>Python3 的程式關鍵字, 使用者命名變數時, 必須避開下列保留字.</p>
+<p>Python keywords:  ['False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']</p>
+<p>選擇好的變數名稱:</p>
+<div class="highlight"><pre><span></span>使用有意義且適當長度的變數名稱， 例如: 使用 length 代表長度, 不要單獨使用 l 或 L, 也不要使用 this_is_the_length
+程式前後變數命名方式盡量一致, 例如: 使用 rect_length 或 RectLength
+用底線開頭的變數通常具有特殊意義
+</pre></div>
+
+
+<h3>print() 函式用法</h3>
+<p>print() 為 Python 程式語言中用來列印數值或字串的函式, 其中有 sep 變數定義分隔符號, ｓep 內定為 ",", end 變數則用來定義列印結尾的符號, end 內定為跳行符號.</p>
+<h3>for 迴圈用法與 Python 的縮排規定</h3>
+<p>重複迴圈用法, 使用者可以透過下列程式編輯區練習 for 迴圈與 print() 函式的用法.</p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="editor", console_id="console", container_id="first_container", storage_id="py_src" )
+
+Ace.editor.setValue('''#ex1 簡單的 for 迴圈範例
+for i in range(10):
+    print(i)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['run'].bind('click', Ace.run)
+doc['show_console'].bind('click', Ace.show_console)
+doc['clear_console'].bind('click', Ace.clear_console)
+</script>
+
+<!-- 用來顯示程式碼的 editor 區域 -->
+
+<div id="editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('py_src', 'filename');"/>
+</form>
+
+<p><button id="run">Run</button>
+<button id="show_console">Output</button>
+<button id="clear_console">清除</button>
+<div style="width:100%;height:100%;">
+<textarea id="console" autocomplete="off"></textarea>
+</div></p>
+<!-- 以下置入 brython turtle 繪圖程式段, 但是各畫布必須使用不同名稱 -->
+
+<p>下列的 Brython turtle 網際繪圖程式僅提供參考, 可以用來練習 Python3 程式語法.</p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="turtle_editor", console_id="turtle_console", container_id="container", storage_id="turtle_py_src" )
+
+Ace.editor.setValue('''import turtle
+t=turtle.Turtle()
+
+t.penup()
+t.left(45)
+t.backward(125)
+t.right(45)
+t.pendown()
+
+for c in ['red', 'green', 'yellow', 'blue']:
+    t.color(c)
+    t.forward(75)
+    t.left(90)
+
+t1=turtle.Turtle("turtle")
+t1.penup()
+
+t1.pendown()
+t1.width(3)
+for c in ['red', 'blue', 'yellow', 'green', 'purple', 'brown']:
+    t1.color(c)
+    t1.forward(50)
+    t1.left(60)
+
+t1.penup()
+t1.left(60)
+t1.backward(120)
+
+t1.pendown()
+t1.color('red')
+t1.write("I love Brython!!")
+
+turtle._Screen().end()
+''')
+
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+doc['turtle_run'].bind('click', Ace.run)
+doc['turtle_show_console'].bind('click', Ace.show_console)
+doc['turtle_clear_console'].bind('click', Ace.clear_console)
+doc['turtle_clear_container'].bind('click', Ace.clear_container)
+</script>
+
+<div id="turtle_editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="turtle_filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('tutle_py_src', 'turtle_filename');"/>
+</form>
+
+<p><button id="turtle_run">Run</button>
+<button id="turtle_show_console">Output</button>
+<button id="turtle_clear_console">清除</button>
+<button id="turtle_clear_container">清除畫布</button>
+<div style="width:100%;height:100%;">
+<textarea id="turtle_console" autocomplete="off"></textarea>
+</div></p>
+<!-- container 主要提供網際繪圖用之畫布 -->
+
+<div id="container"></div>
+
+<h3>函式用法與呼叫</h3>
+<p>使用者可以利用下列程式, 練習 def 函式定義與呼叫的用法.</p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="fun_editor", console_id="fun_console", container_id="fun_container", storage_id="fun_py_src" )
+
+Ace.editor.setValue('''# 定義函式
+def square_of_x(x):
+    return x*x
+
+# 呼叫函式
+y = square_of_x(3)
+# 列印 y 對應內容
+print(y)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['fun_run'].bind('click', Ace.run)
+doc['fun_show_console'].bind('click', Ace.show_console)
+doc['fun_clear_console'].bind('click', Ace.clear_console)
+</script>
+
+<!-- 用來顯示程式碼的 editor 區域 -->
+
+<div id="fun_editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="fun_filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('fun_py_src', 'fun_filename');"/>
+</form>
+
+<p><button id="fun_run">Run</button>
+<button id="fun_show_console">Output</button>
+<button id="fun_clear_console">清除</button>
+<div style="width:100%;height:100%;">
+<textarea id="fun_console" autocomplete="off"></textarea>
+</div></p>
+<!-- Brython 的網際繪圖 -->
+
+<p>以下網際繪圖程式, 僅提供參考.</p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="by_editor", console_id="by_console", container_id="by_container", storage_id="by_py_src" )
+
+Ace.editor.setValue('''# First of all, the import of some libraries
+from browser import document as doc
+from browser import html
+
+# All the elements will be inserted in the div with the "container" id
+container = doc['by_container']
+
+# We create a new div element
+newdiv = html.DIV(id = "new-div")
+# Now we add some style
+newdiv.style = {"padding": "5px", 
+               "backgroundColor": "#ADD8E6"}
+
+# Now, lets add a table with a column with numbers and a
+# column with a word on each cell
+text = "Brython is really cool"
+textlist = text.split()
+table = html.TABLE()
+for i, word in enumerate(textlist):
+    table <= html.TR(html.TD(i + 1) + 
+                     html.TD(word))
+# Now we add some style to the table
+table.style = {"padding": "5px", 
+               "backgroundColor": "#aaaaaa",
+               "width": "100%"}
+# Now we add the table to the new div previously created
+newdiv <= table + html.BR()
+
+# a form? why not?
+form = html.FORM()
+input1 = html.INPUT(type="text", name="firstname", value="First name")
+input2 = html.INPUT(type="text", name="lastname", value="Last name")
+input3 = html.BUTTON("Button with no action!")
+form <= input1 + html.BR() + input2 + html.BR() + input3
+
+newdiv <= form + html.BR()
+
+# Finally, we will add something more 'HTML5istic', a canvas with
+# a color gradient in the newdiv previously created and below the form
+canvas = html.CANVAS(width = 300, height = 300)
+#canvas.style = {"width": "100%"}
+ctx = canvas.getContext('2d')
+ctx.rect(0, 0, 300, 300)
+grd = ctx.createRadialGradient(150, 150, 10, 150, 150, 150)
+grd.addColorStop(0, '#8ED6FF')
+grd.addColorStop(1, '#004CB3')
+ctx.fillStyle = grd
+ctx.fill()
+
+newdiv <= canvas
+# And finally we append the newdiv element
+# to the parent, in this case the div with the "container" id
+container <= newdiv
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['by_run'].bind('click', Ace.run)
+doc['by_show_console'].bind('click', Ace.show_console)
+doc['by_clear_console'].bind('click', Ace.clear_console)
+doc['by_clear_container'].bind('click', Ace.clear_container)
+</script>
+
+<!-- 用來顯示程式碼的 editor 區域 -->
+
+<div id="by_editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="by_filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('by_py_src', 'by_filename');"/>
+</form>
+
+<p><button id="by_run">Run</button>
+<button id="by_show_console">Output</button>
+<button id="by_clear_console">清除</button>
+<button id="by_clear_container">清除畫布</button>
+<div style="width:100%;height:100%;">
+<textarea id="by_console" autocomplete="off"></textarea>
+</div>
+<div id="by_container"></div></p>
+<!-- Brython 動畫 -->
+
+<p>以下網際動態繪圖程式, 僅提供參考.</p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="clock_editor", console_id="clock_console", container_id="clock_container", storage_id="clock_py_src" )
+
+Ace.editor.setValue('''# First of all, the import of some libraries
+import time
+import math
+import datetime
+from browser import document as doc
+import browser.timer
+from browser import html
+
+sin,cos = math.sin,math.cos
+width,height = 250,250 # canvas dimensions
+ray = 100 # clock ray
+
+# All the elements will be inserted in the div with the "container" id
+container = doc['clock_container']
+
+# We create a new div element
+newdiv = html.DIV(id = "new-div")
+# Now we add some style
+newdiv.style = {"padding": "5px", 
+               "backgroundColor": "#ADD8E6"}
+
+canvas = html.CANVAS(width = width, height = height)
+#canvas.style = {"width": "100%"}
+ctx = canvas.getContext('2d')
+
+def needle(angle,r1,r2,color="#000000"):
+    # draw a needle at specified angle in specified color
+    # r1 and r2 are percentages of clock ray
+    x1 = width/2-ray*cos(angle)*r1
+    y1 = height/2-ray*sin(angle)*r1
+    x2 = width/2+ray*cos(angle)*r2
+    y2 = height/2+ray*sin(angle)*r2
+    ctx.beginPath()
+    ctx.strokeStyle = color
+    ctx.moveTo(x1,y1)
+    ctx.lineTo(x2,y2)
+    ctx.stroke()
+
+def set_clock():
+    # erase clock
+    ctx.beginPath()
+    ctx.fillStyle = "#FFF"
+    ctx.arc(width/2,height/2,ray*0.89,0,2*math.pi)
+    ctx.fill()
+
+    # redraw hours
+    show_hours()
+
+    # print day
+    now = datetime.datetime.now()
+    day = now.day
+    ctx.font = "bold 14px Arial"
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+    ctx.fillStyle="#FFF"
+    ctx.fillText(day,width*0.7,height*0.5)
+
+    # draw needles for hour, minute, seconds    
+    ctx.lineWidth = 3
+    hour = now.hour%12 + now.minute/60
+    angle = hour*2*math.pi/12 - math.pi/2
+    needle(angle,0.05,0.5)
+    minute = now.minute
+    angle = minute*2*math.pi/60 - math.pi/2
+    needle(angle,0.05,0.85)
+    ctx.lineWidth = 1
+    second = now.second+now.microsecond/1000000
+    angle = second*2*math.pi/60 - math.pi/2
+    needle(angle,0.05,0.85,"#FF0000") # in red
+
+browser.timer.set_interval(set_clock,100)
+
+ctx.beginPath()
+ctx.lineWidth = 10
+ctx.arc(width/2,height/2,ray,0,2*math.pi)
+ctx.stroke()
+
+for i in range(60):
+    ctx.lineWidth = 1
+    if i%5 == 0:
+        ctx.lineWidth = 3
+    angle = i*2*math.pi/60 - math.pi/3
+    x1 = width/2+ray*cos(angle)
+    y1 = height/2+ray*sin(angle)
+    x2 = width/2+ray*cos(angle)*0.9
+    y2 = height/2+ray*sin(angle)*0.9
+    ctx.beginPath()
+    ctx.moveTo(x1,y1)
+    ctx.lineTo(x2,y2)
+    ctx.stroke()
+
+def show_hours():
+    ctx.beginPath()
+    ctx.arc(width/2,height/2,ray*0.05,0,2*math.pi)
+    ctx.fillStyle = "#000"
+    ctx.fill()
+    for i in range(1,13):
+        angle = i*math.pi/6-math.pi/2
+        x3 = width/2+ray*cos(angle)*0.75
+        y3 = height/2+ray*sin(angle)*0.75
+        ctx.font = "20px Arial"
+        ctx.textAlign = "center"
+        ctx.textBaseline = "middle"
+        ctx.fillText(i,x3,y3)
+    # cell for day
+    ctx.fillStyle = "#000"
+    ctx.fillRect(width*0.65,height*0.47,width*0.1,height*0.06)
+
+show_hours()
+set_clock()
+
+newdiv <= canvas
+# And finally we append the newdiv element
+# to the parent, in this case the div with the "container" id
+container <= newdiv
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['clock_run'].bind('click', Ace.run)
+doc['clock_show_console'].bind('click', Ace.show_console)
+doc['clock_clear_console'].bind('click', Ace.clear_console)
+doc['clock_clear_container'].bind('click', Ace.clear_container)
+</script>
+
+<!-- 用來顯示程式碼的 editor 區域 -->
+
+<div id="clock_editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="clock_filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('clock_py_src', 'clock_filename');"/>
+</form>
+
+<p><button id="clock_run">Run</button>
+<button id="clock_show_console">Output</button>
+<button id="clock_clear_console">清除</button>
+<button id="clock_clear_container">清除畫布</button>
+<div style="width:100%;height:100%;">
+<textarea id="clock_console" autocomplete="off"></textarea>
+</div>
+<div id="clock_container"></div></p>
+<h3>基本物件導向與案例</h3>
+<p>Python 採用類別 (class) 將案例變數 (instance variables) 與案例方法 (instance methods) 包在一起, 並用來定義一種物件 (object).</p>
+<p>物件導向具有封裝 (encapsulation) , 繼承 (inheritance) 與多形 ( polymorphism) 等三種特性.</p>
+<!-- oop 範例 -->
+
+<p>使用者可以利用下列程式練習 Python3 物件的定義與應用.</p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="oop1_editor", console_id="oop1_console", container_id="oop1_container", storage_id="oop1_py_src" )
+
+Ace.editor.setValue('''# Robot class 定義
+class Robot(object):
+    def __init__(self, name, by):
+        self._name = name
+        self._build_year = by
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, newname):
+        self._name = name
+
+    @property
+    def build_year(self):
+        return self._build_year
+
+    @build_year.setter
+    def build_year(self, newby):
+        self._build_year = newby
+
+x = Robot("bob", 1993)
+x.build_year = 1993
+print(x.name)
+print(x.build_year)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['oop1_run'].bind('click', Ace.run)
+doc['oop1_show_console'].bind('click', Ace.show_console)
+doc['oop1_clear_console'].bind('click', Ace.clear_console)
+</script>
+
+<!-- 用來顯示程式碼的 editor 區域 -->
+
+<div id="oop1_editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="oop1_filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('oop1_py_src', 'oop1_filename');"/>
+</form>
+
+<p><button id="oop1_run">Run</button>
+<button id="oop1_show_console">Output</button>
+<button id="oop1_clear_console">清除</button>
+<div style="width:100%;height:100%;">
+<textarea id="oop1_console" autocomplete="off"></textarea>
+</div></p>
+<!-- 必須處理重複執行後機構模擬產生錯誤的問題 -->
+
+<p>以下平面機構動態模擬程式, 僅提供參考.</p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="link_editor", console_id="link_console", container_id="fourbar", storage_id="link_py_src" )
+
+Ace.editor.setValue('''# 導入所需模組
+from browser import document as doc
+from browser import window
+from browser import timer
+from browser import html
+import math
+
+# 利用 window 擷取 PrairieDraw 程式庫變數物件, 然後以 new 方法轉為 Brython 變數
+pdraw = window.PrairieDraw.new
+# 利用 window 擷取 PrairieDrawAnim 程式庫變數物件, 然後以 new 方法轉為 Brython 變數
+PrairieDrawAnim = window.PrairieDrawAnim.new
+
+# 利用 window 擷取 sylvester 程式庫變數物件 Vector, 並將其 create 方法直接轉為 Brython 變數
+# 在 sylvester 中的 $V 簡化變數無法直接在 Brython 程式中引用
+vector = window.Vector.create
+
+# 在 "fourbar" 畫布中建立 panim 動態模擬案例
+panim = PrairieDrawAnim("fourbar")
+
+# 平面連桿繪圖以 t = 0 起始
+t = 0
+# 控制轉動方向變數
+direction = True
+
+# 繪製不同 t 時間下的平面連桿
+def draw():
+    global t, direction, fast
+    # 設定模擬繪圖範圍
+    panim.setUnits(6, 6)
+    # 設定箭頭線寬
+    panim.setProp("arrowLineWidthPx",2)
+
+    # 起始變數設定
+    omega = 1
+    length_bar1 = 1
+    length_bar2 = 26/18
+    length_bar3 = 2
+    length_base = 40/18
+    time = 0
+
+    # 畫出地面直線
+    G = vector([0, -0.5])
+    panim.ground(G, vector([0, 1]), 10)
+
+    # 連桿長度與角度計算
+    A = t*omega # "theta"
+    AD = length_bar1 #length of left bar
+    AB = length_base #distance between two stationary pivots
+    BC = length_bar3 #length of right bar
+    CD = length_bar2 #length of middle bar
+    BD = math.sqrt(AD*AD + AB*AB - 2*AD*AB*math.cos(A))
+    C = math.acos((BC*BC + CD*CD - BD*BD)/(2*BC*CD))
+    ABD = math.asin(CD * math.sin(C) / BD)
+    DBC = math.asin(AD * math.sin(A) / BD)
+    B = ABD + DBC
+    D = math.pi - B - C
+
+    # draw pivot
+    pivot_left = vector([AB/-2, 0])
+    pivot_right = vector([AB/2, 0])
+    panim.pivot(vector([pivot_left.e(1), -0.5]), pivot_left, 0.5)
+    panim.pivot(vector([pivot_right.e(1), -0.5]), pivot_right, 0.5)
+
+    # 儲存轉換矩陣
+    panim.save()
+    #FIRST BAR
+    panim.translate(pivot_left)
+    panim.rotate(A)
+    panim.rod(vector([0,0]), vector([AD,0]), 0.25)
+    panim.point(vector([0,0]))
+
+    #SECOND BAR
+    panim.translate(vector([AD,0]))
+    panim.rotate(A*-1)  #"undo" the original A rotation
+    panim.rotate(D)     #rotate by D only
+    panim.rod(vector([0,0]), vector([CD,0]), 0.25)
+    panim.point(vector([0,0]))
+
+    #THIRD BAR
+    panim.translate(vector([CD,0]))
+    panim.rotate(math.pi+C)
+    panim.rod(vector([0,0]), vector([BC,0]), 0.25)
+    panim.point(vector([0,0]))
+    # 回復原先的轉換矩陣
+    panim.restore()
+
+    panim.point(vector([pivot_right.e(1), 0]))
+    # 時間增量
+    if direction == True:
+        t += 0.08
+    else:
+        t += -0.08
+
+# 先畫出 t = 0 的連桿機構
+draw()
+
+# 將 anim 設為 None
+anim = None
+
+def launchAnimation(ev):
+    global anim
+    # 初始啟動, anim 為 None
+    if anim is None:
+        # 每 0.08 秒執行一次 draw 函式繪圖
+        anim = timer.set_interval(draw, 80)
+        # 初始啟動後, 按鈕文字轉為"暫停"
+        doc['power'].text = '暫停'
+    elif anim == 'hold':
+        # 當 anim 為 'hold' 表示曾經暫停後的啟動, 因此持續以 set_interval() 持續旋轉, 且將 power 文字轉為"暫停"
+        anim = timer.set_interval(draw, 80)
+        doc['power'].text = '暫停'
+    else:
+        # 初始啟動後, 使用者再按 power, 此時 anim 非 None 也不是 'hold', 因此會執行 clear_interval() 暫停
+        # 且將 anim 變數設為 'hold', 且 power 文字轉為"繼續"
+        timer.clear_interval(anim)
+        anim = 'hold'
+        doc['power'].text = '繼續'
+
+def reverse(ev):
+    global anim, direction
+    # 當 anim 為 hold 時, 按鈕無效
+    if anim != "hold":
+        if direction == True:
+            direction = False
+        else:
+            direction = True
+
+doc["power"].bind("click", launchAnimation)
+doc["reverse"].bind("click", reverse)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['link_run'].bind('click', Ace.run)
+doc['link_show_console'].bind('click', Ace.show_console)
+doc['link_clear_console'].bind('click', Ace.clear_console)
+</script>
+
+<!-- 用來顯示程式碼的 editor 區域 -->
+
+<div id="link_editor" style="width:600px;height:300px;"></div>
+
+<!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 -->
+
+<form>
+    <label>Filename: <input type="text" id="link_filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave('link_py_src', 'link_filename');"/>
+</form>
+
+<p><button id="link_run">Run</button>
+<button id="link_show_console">Output</button>
+<button id="link_clear_console">清除</button>
+<button id="power">啟動</button>
+<button id="reverse">反向</button>
+<div style="width:100%;height:100%;">
+<textarea id="link_console" autocomplete="off"></textarea>
+</div>
+<canvas id="fourbar" width="250" height="250"></canvas></p>
+<p>目前所在頁面, 分別利用 Brython 與 Ace.js 編輯器, 可直接在網誌中執行 Python3 程式, 基本架構為將 Brython 的標準輸出轉到特定 div 標註, 而 Ace.js 編輯器則設為與其內的程式碼相同長度, 但至多只會在頁面中顯示 20 行, 且編輯器內的程式碼使用 12 號字元.</p>
+<p>ace.py 原始碼, 位於 data/py 目錄中, 將原先只能單一呼叫的函式改為物件, 可以在同一頁面中產生案例時, 透過各標註的 id 字串區分各段程式碼, 是本課程 Python3 物件導向程式的實際應用範例, 僅提供參考.</p>
+<pre class="brush: python">
+import sys
+import time
+import traceback
+import javascript
+
+from browser import document as doc, window, alert
+
+if hasattr(window, 'localStorage'):
+    from browser.local_storage import storage
+else:
+    storage = None
+
+class cOutput:
+
+    def __init__(self, target):
+        self.target = doc[target]
+
+    def write(self, data):
+        self.target.value += str(data)
+
+class Editor():
+
+    def __init__(self, editor_id, console_id, container_id, storage_id):
+        self.editor_id = editor_id
+        self.console_id = console_id
+        self.container_id = container_id
+        self.storage_id = storage_id
+        self.output = ''
+
+        try:
+            self.editor = window.ace.edit(self.editor_id)
+            session = self.editor.getSession()
+            session.setMode("ace/mode/python")
+
+            self.editor.setOptions({
+             'enableLiveAutocompletion': True,
+             'enableSnippets': True,
+             'highlightActiveLine': False,
+             'highlightSelectedWord': True,
+             'autoScrollEditorIntoView': True,
+             # 'maxLines': session.getLength() 可以根據程式長度設定 editor 列數
+             # 設定讓使用者最多可以在畫面中顯示 20 行程式碼
+             'maxLines': 20,
+             'fontSize': '12pt'
+            })
+        except:
+            from browser import html
+            self.editor = html.TEXTAREA(rows=20, cols=70)
+            doc[self.editor_id] &lt;= self.editor
+            def get_value(): return self.editor.value
+            def set_value(x): self.editor.value = x
+            self.editor.getValue = get_value
+            self.editor.setValue = set_value
+
+    def run(self, *args):
+        sys.stdout = cOutput(self.console_id)
+        sys.stderr = cOutput(self.console_id)
+        doc[self.console_id].value = ''
+        src = self.editor.getValue()
+        if storage is not None:
+           storage[self.storage_id] = src
+
+        t0 = time.perf_counter()
+        try:
+            #ns = {'__name__':'__main__'}
+            # 以 self.editor_id 名稱執行程式
+            ns = {'__name__': self.editor_id}
+            exec(src, ns)
+            state = 1
+        except Exception as exc:
+            traceback.print_exc(file=sys.stderr)
+            state = 0
+        self.output = doc[self.console_id].value
+
+        print('&lt;completed in %6.2f ms&gt;' % ((time.perf_counter() - t0) * 1000.0))
+        return state
+
+    def show_console(self, ev):
+        doc[self.console_id].value = self.output
+        doc[self.console_id].cols = 60
+        doc[self.console_id].rows = 10
+
+    def clear_console(self, ev):
+        doc[self.console_id].value = ""
+
+    def clear_container(self, ev):
+        doc[self.container_id].clear()
+
+    # load a Python script
+    def load_script(self, evt):
+        _name = evt.target.value + '?foo=%s' % time.time()
+        self.editor.setValue(open(_name).read())
+</pre>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'kmol-2017-fall-course-cp-w6';
+                var disqus_url = 'https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-course-cp-w6.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-let-us-encrypt-intro.html">
+                            導入 Let's Encrypt 數位簽章
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-windows-calculator-development.html">
+                            視窗計算機程式開發
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-github-pages.html">
+                            Github 協同倉儲
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-event-driven-programming-design.html">
+                            事件導向程式設計
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pelican-and-pandoc-markdown-format.html">
+                            Pelican 與 Pandoc MD 導引
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/categories.html"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">
+                            <i class="fa fa-folder-open fa-lg"></i> Course
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/DandyDev/pelican-bootstrap3/" target="_blank">
+                pelican-bootstrap3
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/getpelican/pelican-plugins" target="_blank">
+                pelican-plugins
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/Tipue/Tipue-Search" target="_blank">
+                Tipue search
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 KMOL
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/bootstrap.min.js"></script>
+
+<!-- for https://github.com/jsor/lity lightbox video popup -->
+
+<link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/lity.css" rel="stylesheet">
+
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/lity.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>CP PyQt5 視窗程式 (一) - 2017Fall CADP&CP (虎尾科大MDE)</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+-->
+
+<!-- for LaTeX equations -->
+<script src="./../data/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+
+<link rel="canonical" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pyqt5-1.html">
+
+        <meta name="author" content="yen" />
+        <meta name="keywords" content="2017fall,PyQt5" />
+        <meta name="description" content="2017 年 Fall 的計算機程式課程開始導入 PyQt5 視窗程式教學, 其中使用 Eric6 整合開發環境簡化初學者建立視窗表單." />
+
+        <meta property="og:site_name" content="2017Fall CADP&CP (虎尾科大MDE)" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="CP PyQt5 視窗程式 (一)"/>
+        <meta property="og:url" content="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pyqt5-1.html"/>
+        <meta property="og:description" content="2017 年 Fall 的計算機程式課程開始導入 PyQt5 視窗程式教學, 其中使用 Eric6 整合開發環境簡化初學者建立視窗表單."/>
+        <meta property="article:published_time" content="2017-10-31" />
+            <meta property="article:section" content="Course" />
+            <meta property="article:tag" content="2017fall" />
+            <meta property="article:tag" content="PyQt5" />
+            <meta property="article:author" content="yen" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/bootstrap.united.min.css" type="text/css"/>
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/style.css" type="text/css"/>
+
+        <link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="2017Fall CADP&CP (虎尾科大MDE) ATOM Feed"/>
+
+<!-- for img border -->
+  <style type="text/css">
+.border { 
+   border:2px solid black;
+}
+table, th, td {
+   border: 1px solid black;
+    padding: 15px;
+    text-align: left;
+}
+  </style>
+  
+<script type="text/javascript" src="./../data/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.min.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.js"></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "./../data/syntaxhighlighter/shCore.css";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "./../data/syntaxhighlighter/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+<!-- for table style start -->
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+}
+</style>
+<!-- for table style end -->
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/" class="navbar-brand">
+2017Fall CADP&CP (虎尾科大MDE)            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="pages/about/">About</a></li>
+                        <li class="active">
+                            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">Course</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pyqt5-1.html"
+                       rel="bookmark"
+                       title="Permalink to CP PyQt5 視窗程式 (一)">
+                        CP PyQt5 視窗程式 (一)
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-10-31T13:00:00+08:00"> 週二 31 十月 2017</time>
+    </span>
+            <span class="label label-default">By</span>
+            <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/author/yen.html"><i class="fa fa-user"></i> yen</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/2017fall.html">2017fall</a>
+        /
+	<a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tag/pyqt5.html">PyQt5</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>2017 年 Fall 的計算機程式課程開始導入 <a href="http://pyqt.sourceforge.net/Docs/PyQt5/modules.html">PyQt5</a> 視窗程式教學, 其中使用 <a href="https://eric-ide.python-projects.org">Eric6</a> 整合開發環境簡化初學者建立視窗表單.</p>
+
+
+<iframe src="https://player.vimeo.com/video/242527163" width="640" height="512" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/242527163">國立虎尾科技大學機械設計工程系計算機程式 - 一乙第十週第一部分, 說明如何客製化可攜程式系統, 直接以 start.bat 開啟 Leo Editor, 並開啟內定的專案檔</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/243035518" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/243035518">國立虎尾科技大學機械設計工程系計算機程式 - 一甲第十週第一部分, 說明如何客製化可攜程式系統, 直接以 start.bat 開啟 Leo Editor, 下載 Dia 與 Gimp 可攜程式, 用來編輯 2D 表達用的圖檔.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<iframe src="https://player.vimeo.com/video/243037384" width="640" height="491" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p><a href="https://vimeo.com/243037384">國立虎尾科技大學機械設計工程系計算機程式 - 一甲第十週第二部分, 說明如何利用 ShareX, Gimp 與 Dia 處理 2D 圖檔的內容標示.</a> from <a href="https://vimeo.com/user24079973">國立虎尾科技大學機械設計工程系</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<h3>手動建立 PyQt5 視窗介面</h3>
+<p>最簡單的 <a href="http://pyqt.sourceforge.net/Docs/PyQt5/modules.html">PyQt5</a> 程式直接利用 <a href="http://doc.qt.io/qt-5/qtwidgets-module.html">QtWidgets</a> 中的 <a href="http://doc.qt.io/qt-5/qwidget.html">QWidget</a> 呈現簡單的視窗, 然後利用 <a href="http://doc.qt.io/qt-5/qapplication.html">QApplication</a> 建立應用程式後, 以應用程式的 <a href="http://doc.qt.io/qt-5/qapplication.html#exec">exec()</a> 方法進入事件迴圈.</p>
+<pre class="brush: python">
+# 導入 sys 模組
+import sys
+# 從 PyQt5 模組中導入 QtWidgets
+from PyQt5 import QtWidgets
+
+# 利用 QtWidgets.QApplication 類別建立應用程式案例物件, 名稱設為 app
+app = QtWidgets.QApplication(sys.argv)
+# 利用 QtWidgets.QWidget 類別建立視窗案例物件, 名稱設為 win
+win = QtWidgets.QWidget()
+# 利用視窗案例物件中的 show() 方法顯示 win 物件
+win.show()
+# 執行 app 物件中的 exec() 方法, 以進入事件迴圈, 同時允許使用者透過視窗右上方的 x 按鈕, 關閉視窗.
+app.exit(app.exec())
+</pre>
+
+<p>特別注意 <a href="http://pyqt.sourceforge.net/Docs/PyQt5/modules.html">PyQt5</a> 模組中的 P 與 Q 為大寫, 而 <a href="http://doc.qt.io/qt-5/qtwidgets-module.html">QtWidgets</a> 中的 Q 與 W 為大寫, <a href="http://doc.qt.io/qt-5/qapplication.html">QApplication</a> 中的 Q 與 A 為大寫, 而 <a href="http://doc.qt.io/qt-5/qwidget.html">QWidget</a> 中的 Q 與 W 為大寫.</p>
+<p>另外, 利用 <a href="http://doc.qt.io/qt-5/qwidget.html#show">show()</a> 方法將視窗元件顯示後, 其下的程式流程仍可繼續執行, 而對話框中所使用的 <a href="http://doc.qt.io/qt-5/qapplication.html#exec">exec()</a> 方法將會一直到使用者關閉對話框後, 才會將程式的控制權交回.</p>
+<p><a href="http://doc.qt.io/qt-5/qtwidgets-module.html">QtWidgets</a> 模組提供一組使用者介面元件 (User Interface elements), 用來建立傳統視窗桌面樣式的使用者操作介面.</p>
+<p>事件導向的 <a href="http://pyqt.sourceforge.net/Docs/PyQt5/modules.html">PyQt5</a> 程式基本控制流程為:</p>
+<div class="highlight"><pre><span></span>建立 QApplication 應用程式物件
+建立視窗元件
+顯示視窗元件
+進入應用程式執行迴圈
+等待使用者所觸發的事件
+</pre></div>
+
+
+<h3>以 Eric6 建立 PyQt5 視窗介面</h3>
+<p>首先使用者必須利用可攜程式環境中的 fossil.exe 2.3 版 fossil clone https://mde1a1.kmol.info/pymcadp 倉儲, 操作指令為:</p>
+<div class="highlight"><pre><span></span>選定要 clone 倉儲存檔的目錄, 一般建議為 y:\tmp\fossil 目錄
+更換目錄到倉儲存檔的目錄後, 執行 fossil clone https://mde1a1.kmol.info/pymcadp pymcadp.fossil
+將 pymcadp.fossil 開啟在其目錄下的 wd\pymcadp 目錄
+更換目錄到 wd\pymcadp 後, 執行 fossil open ./../../pymcadp.fossil
+</pre></div>
+
+
+<p>將遠端的 pymcadp 倉儲 clone 至近端後, 解開其最新版內容後, 接著就要配合 2017 Fall 的 CP 課程, 在倉儲中的 2017fall 目錄, 存放本學期隨後與課程配合的 Eric6 專案及程式碼, 各學員則配合參考 pymcadp 中的設計與配置, 在自己的倉儲中建立對應的目錄與專案內容.</p>
+<h4>啟動 Eric6 IDE</h4>
+<p>在隨身碟中啟動 Eric6 只要點按 start.bat 後, 在命令列中執行 eric6 即可帶出整合開發環境.</p>
+<p>之後, 從下拉式功能表中的 Project, 以 New 建立新專案, 使用者必須設定 Project Properties 畫面如下:</p>
+<p><img class = "border" src="./../data/images/eric6_project_properties.png"></img></p>
+<p>(以上 2D 圖像表達, 採用 <a href="https://getsharex.com/">ShareX</a> 擷取視窗區域存成圖檔後, 以 <a href="https://www.gimp.org/">GIMP</a> 編輯, 利用 Rectangle Select Tool 選定要以紅線標示的三個區域後, 再透過 <a href="https://www.gimp.org/">GIMP</a> 的 Edit-Stroke Selection 功能, 選擇標示框線的顏色、大小與樣式)</p>
+<p>填入 2017 Fall CP 課程相關 Eric6 程式專案後,  Project Properties 視窗畫面如下:</p>
+<p><img class = "border" src="./../data/images/eric6_project_properties2.png"></img></p>
+<p>亦即專案名稱設為 calculator, 專案目錄選擇位於 Y:\tmp\fossil\pymcadp\2017fall, 且 Main Script 設為 run.py</p>
+<p>在 Eric6 的 Project-Viewer 視窗中, 前兩個頁面為原始碼頁與表單頁, 原始碼頁畫面如下:</p>
+<p><img class = "border" src="./../data/images/eric6_sources_tab.png"></img></p>
+<p>表單頁面如下:</p>
+<p><img class = "border" src="./../data/images/eric6_forms_tab.png"></img></p>
+<p>選擇表單頁面後, 以滑鼠右鍵新增表單:</p>
+<p><img class = "border" src="./../data/images/eric6_new_form.png"></img> <br />(圖檔以 <a href="https://getsharex.com/">ShareX</a> 取 screenshot 後, 以 <a href="https://www.gimp.org/">Gimp</a> 加入紅色框線後, 以 <a href="https://sourceforge.net/projects/dia-installer/">Dia</a> 加入指向曲線與標註文字)</p>
+<p>計算機使用的表單為 Dialog:</p>
+<p><img class = "border" src="./../data/images/eric6_new_form_dialog.png"></img></p>
+<p>將表單相關檔案存入新增的目錄中:</p>
+<p><img class = "border" src="./../data/images/eric6_new_form_new_folder.png"></img></p>
+<p><img class = "border" src="./../data/images/eric6_new_form_ui_dialog.png"></img></p>
+<p>新增表單設定完成後, Eric6 自動開啟 Qt Design 畫面:</p>
+<p><img class = "border" src="./../data/images/eric6_qt_designer.png"></img></p>
+<p><a href="http://doc.qt.io/qt-5/qabstractbutton.html">QAbstractButton Class</a></p>
+<p><a href="http://doc.qt.io/qt-5/qlineedit.html">QLineEdit Class</a> (<a href="http://pyqt.sourceforge.net/Docs/PyQt4/qlineedit.html">PyQt4 的 QLineEdit 說明</a>)</p>
+<p><a href="http://doc.qt.io/qt-5/layout.html">Layout Management</a></p>
+<p><a href="http://pyqt.sourceforge.net/Docs/PyQt5/class_reference.html">PyQt5 Class reference</a></p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'kmol-2017-fall-pyqt5-1';
+                var disqus_url = 'https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pyqt5-1.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-let-us-encrypt-intro.html">
+                            導入 Let's Encrypt 數位簽章
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-windows-calculator-development.html">
+                            視窗計算機程式開發
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-github-pages.html">
+                            Github 協同倉儲
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-event-driven-programming-design.html">
+                            事件導向程式設計
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/kmol-2017-fall-pelican-and-pandoc-markdown-format.html">
+                            Pelican 與 Pandoc MD 導引
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/categories.html"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/category/course.html">
+                            <i class="fa fa-folder-open fa-lg"></i> Course
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/DandyDev/pelican-bootstrap3/" target="_blank">
+                pelican-bootstrap3
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/getpelican/pelican-plugins" target="_blank">
+                pelican-plugins
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://github.com/Tipue/Tipue-Search" target="_blank">
+                Tipue search
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 KMOL
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/bootstrap.min.js"></script>
+
+<!-- for https://github.com/jsor/lity lightbox video popup -->
+
+<link href="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/css/lity.css" rel="stylesheet">
+
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/lity.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://scrum-1.github.io/scrum_pyqt5_calculator/blog/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'kmolabmde'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+</body>
+</html>
